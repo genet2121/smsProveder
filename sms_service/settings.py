@@ -30,7 +30,13 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-u)jew*#wzyzu8q&8fbdh7ghdqg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
+# Auto-detect Render URL and add to ALLOWED_HOSTS
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+
+# Automatically add Render URL if deployed on Render
+RENDER_EXTERNAL_URL = os.getenv('RENDER_EXTERNAL_URL')
+if RENDER_EXTERNAL_URL:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_URL.replace('https://', '').replace('http://', ''))
 
 # SMS Configuration
 SAVING_API_URL = os.getenv('SAVING_API_URL', 'https://api.geezsms.com/api/v1/sms/send')
